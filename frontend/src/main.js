@@ -9,4 +9,3 @@ import { makeServer } from "./server";
 makeServer();
 
 createApp(App).use(router).mount("#app");
-console.log(process.env.NODE_ENV);
