@@ -1,16 +1,11 @@
-import { Server } from "miragejs";
+import { createServer } from "miragejs";
 
 export function makeServer({ environment = "development" } = {}) {
-  let server = new Server({
+  let server = createServer({
     environment,
 
     routes() {
-      this.namespace = "/api";
-      this.urlPrefix = "http://localhost:5000/";
-
-      this.get("/active", () => {
-        return true;
-      });
+      this.namespace = "api";
 
       this.get("/location", () => {
         return [
@@ -33,5 +28,6 @@ export function makeServer({ environment = "development" } = {}) {
       });
     },
   });
+
   return server;
 }
