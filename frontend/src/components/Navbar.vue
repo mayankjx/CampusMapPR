@@ -1,6 +1,6 @@
 <template>
   <div class="navbar">
-    <CFlex>
+    <CFlex align="center" h="100%" w="100%">
       <CFlex w="20%" p="5" pl="10">
         <h1>College Map</h1>
       </CFlex>
@@ -37,4 +37,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.navbar {
+  height: 100%;
+  width: 100%;
+}
+</style>

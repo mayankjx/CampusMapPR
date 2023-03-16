@@ -1,7 +1,5 @@
 <template>
-  <c-box h="100%">
-    <div id="mapContainer"></div>
-  </c-box>
+  <div id="mapContainer"></div>
 </template>
 
 <script>
@@ -58,5 +56,7 @@ export default {
 <style>
 #mapContainer {
   height: 100%;
+  border-radius: 2.5rem;
+  overflow: hidden;
 }
 </style>

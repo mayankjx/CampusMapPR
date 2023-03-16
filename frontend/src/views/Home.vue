@@ -1,10 +1,12 @@
 <template>
   <div class="container">
-    <c-box w="100%" h="15%">
+    <c-box w="100%" h="10%" fontFamily="heading">
       <Navbar></Navbar>
     </c-box>
-    <c-flex w="100%" h="85%">
-      <c-box w="20%" h="100%" bg="red.300"> </c-box>
+    <c-flex w="100%" h="85vh">
+      <c-box w="20%" h="100%" bg="red.300">
+        <Sidebar></Sidebar>
+      </c-box>
       <c-box rounded="lg" w="80%" h="100%">
         <MapContainer></MapContainer>
       </c-box>
@@ -26,12 +28,14 @@ import { CFlex, CBox } from "@chakra-ui/vue";
 import { CGrid, CGridItem, CSimpleGrid } from "@chakra-ui/vue";
 import Navbar from "../components/Navbar.vue";
 import MapContainer from "../components/MapContainer.vue";
+import Sidebar from "../components/Sidebar.vue";
 
 export default {
   name: "Home",
   components: {
     Navbar,
     MapContainer,
+    Sidebar,
     CBox,
     CGrid,
     CGridItem,
@@ -45,6 +49,9 @@ export default {
 .container {
   height: 100vh;
   width: 100vw;
+  padding: 10px;
+  box-sizing: border-box;
+  /* position: relative; */
 }
 
 .map {
