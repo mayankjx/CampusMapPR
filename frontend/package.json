@@ -11,6 +11,7 @@
     "@chakra-ui/vue": "^0.6.2",
     "core-js": "^3.6.5",
     "emotion": "^10.0.27",
+    "mapbox-gl": "^2.13.0",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0"
   },

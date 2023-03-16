@@ -1,14 +1,15 @@
 <template>
   <div class="navbar">
-    <CFlex borderBottomWidth="2px">
+    <CFlex>
       <CFlex w="20%" p="5" pl="10">
-        <h1>Logo</h1>
+        <h1>College Map</h1>
       </CFlex>
       <CFlex w="50%" p="5">
         <c-input-group w="100%">
-          <c-input-left-element color="gray.300" fontSize="1.2em"
-            >¥</c-input-left-element
-          >
+          <c-input-left-element
+            color="gray.300"
+            fontSize="1.2em"
+          ></c-input-left-element>
           <c-input placeholder="Search" size="lg" />
         </c-input-group>
       </CFlex>
@@ -36,9 +37,4 @@ export default {
 };
 </script>
 
-<style>
-.navbar {
-  width: 100%;
-  height: 30%;
-}
-</style>
+<style></style>

@@ -1,16 +1,29 @@
 <template>
   <div class="container">
+    <c-box w="100%" h="15%">
+      <Navbar></Navbar>
+    </c-box>
+    <c-flex w="100%" h="85%">
+      <c-box w="20%" h="100%" bg="red.300"> </c-box>
+      <c-box rounded="lg" w="80%" h="100%">
+        <MapContainer></MapContainer>
+      </c-box>
+    </c-flex>
+  </div>
+  <!-- <div class="container">
     <div class="navbar">
       <Navbar></Navbar>
     </div>
-    <div class="mapContainer">
+    <div class="map">
       <MapContainer></MapContainer>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script>
 // @ is an alias to /src
+import { CFlex, CBox } from "@chakra-ui/vue";
+import { CGrid, CGridItem, CSimpleGrid } from "@chakra-ui/vue";
 import Navbar from "../components/Navbar.vue";
 import MapContainer from "../components/MapContainer.vue";
 
@@ -19,6 +32,23 @@ export default {
   components: {
     Navbar,
     MapContainer,
+    CBox,
+    CGrid,
+    CGridItem,
+    CSimpleGrid,
+    CFlex,
   },
 };
 </script>
+
+<style>
+.container {
+  height: 100vh;
+  width: 100vw;
+}
+
+.map {
+  height: 80%;
+  width: 100%;
+}
+</style>
