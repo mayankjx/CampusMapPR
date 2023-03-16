@@ -10,11 +10,11 @@
             color="gray.300"
             fontSize="1.2em"
           ></c-input-left-element>
-          <c-input placeholder="Search" size="lg" />
+          <c-input placeholder="Search" size="lg" fontFamily="heading" />
         </c-input-group>
       </CFlex>
       <CFlex w="30%" p="5" justify="flex-end">
-        <c-box as="button" rounded="md" bg="tomato" color="white" px="4" h="8">
+        <c-box as="button" rounded="md" bg="primary" color="white" px="4" h="8">
           Login
         </c-box>
       </CFlex>

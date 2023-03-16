@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <c-box w="100%" h="10%" fontFamily="heading">
+    <c-box w="100%" h="10%" fontFamily="heading" fontWeight="bold">
       <Navbar></Navbar>
     </c-box>
     <c-flex w="100%" h="85vh">

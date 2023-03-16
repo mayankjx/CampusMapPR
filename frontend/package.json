@@ -9,6 +9,11 @@
   },
   "dependencies": {
     "@chakra-ui/vue": "^0.6.2",
+    "@fortawesome/fontawesome-svg-core": "^6.3.0",
+    "@fortawesome/free-brands-svg-icons": "^6.3.0",
+    "@fortawesome/free-regular-svg-icons": "^6.3.0",
+    "@fortawesome/free-solid-svg-icons": "^6.3.0",
+    "@fortawesome/vue-fontawesome": "^2.0.10",
     "core-js": "^3.6.5",
     "emotion": "^10.0.27",
     "mapbox-gl": "^2.13.0",
