@@ -4,7 +4,7 @@
       <Navbar></Navbar>
     </c-box>
     <c-flex w="100%" h="85vh">
-      <c-box w="20%" h="100%" bg="red.300">
+      <c-box w="20%" h="100%">
         <Sidebar></Sidebar>
       </c-box>
       <c-box rounded="lg" w="80%" h="100%">
