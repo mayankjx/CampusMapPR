@@ -1,11 +1,13 @@
-import process from "process";
-import { createApp } from "vue";
+import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
-import { makeServer } from "./server";
-// import { Server } from "miragejs";
+import Chakra, { CThemeProvider, CReset } from "@chakra-ui/vue";
 
-// comment this out when changing from mock server to real server
-makeServer();
+Vue.use(Chakra);
 
-createApp(App).use(router).mount("#app");
+Vue.config.productionTip = false;
+
+new Vue({
+  router,
+  render: (h) => h(CThemeProvider, [h(CReset), h(App)]),
+}).$mount("#app");
