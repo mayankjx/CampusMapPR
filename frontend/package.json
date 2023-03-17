@@ -16,8 +16,9 @@
     "@fortawesome/vue-fontawesome": "^2.0.10",
     "core-js": "^3.6.5",
     "emotion": "^10.0.27",
-    "mapbox-gl": "^2.13.0",
+    "mapbox-gl": "^0.53.1",
     "vue": "^2.6.11",
+    "vue-mapbox": "^0.4.1",
     "vue-router": "^3.2.0"
   },
   "devDependencies": {
@@ -27,6 +28,7 @@
     "@vue/cli-service": "~4.5.15",
     "@vue/test-utils": "^1.0.3",
     "chakra-loader": "^1.0.2",
+    "miragejs": "^0.1.47",
     "vue-cli-plugin-chakra-ui": "~1.0.3",
     "vue-template-compiler": "^2.6.11"
   },
