@@ -7,17 +7,27 @@
       :zoom="zoom"
       :pitch="pitch"
       :hash="hash"
-    ></MglMap>
+    >
+      <MglNavigationControl position="top-right"></MglNavigationControl>
+      <MglMarker
+        v-for="marker in markers"
+        :key="marker.location_id"
+        :coordinates="marker.coordinates"
+        @click="handleMarkerClick"
+      ></MglMarker>
+    </MglMap>
   </div>
 </template>
 
 <script>
 import Mapbox from "mapbox-gl";
-import { MglMap } from "vue-mapbox";
+import { MglMap, MglNavigationControl, MglMarker } from "vue-mapbox";
 
 export default {
   components: {
     MglMap,
+    MglNavigationControl,
+    MglMarker,
   },
   data() {
     return {
@@ -34,14 +44,16 @@ export default {
           location_id: 1,
           title: "Hall 3",
           description: "Boys hall of residence",
+          coordinates: [80.0218892, 23.1757697],
           x_cord: 23.1757697,
           y_cord: 80.0218892,
           visibility: 1,
         },
         {
-          location_id: 1,
+          location_id: 2,
           title: "Football Ground",
           description: "Football ground merged with cricket ground",
+          coordinates: [80.0221494, 23.1759937],
           x_cord: 23.1759937,
           y_cord: 80.0221494,
           visibility: 1,
@@ -50,6 +62,8 @@ export default {
     };
   },
   methods: {
+    handleMarkerClick() {},
+
     flyToLocation(data) {
       if (data != null) {
         new mapboxgl.Marker({ color: "black", scale: "2" })
