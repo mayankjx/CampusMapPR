@@ -13,21 +13,26 @@
         v-for="marker in markers"
         :key="marker.location_id"
         :coordinates="marker.coordinates"
-        @click="handleMarkerClick"
-      ></MglMarker>
+        @click="handleMarkerClick(marker)"
+      >
+        <MglPopup><MiniPopup :marker="marker"></MiniPopup> </MglPopup>
+      </MglMarker>
     </MglMap>
   </div>
 </template>
 
 <script>
 import Mapbox from "mapbox-gl";
-import { MglMap, MglNavigationControl, MglMarker } from "vue-mapbox";
+import { MglMap, MglNavigationControl, MglMarker, MglPopup } from "vue-mapbox";
+import MiniPopup from "./MiniPopup.vue";
 
 export default {
   components: {
     MglMap,
     MglNavigationControl,
     MglMarker,
+    MglPopup,
+    MiniPopup,
   },
   data() {
     return {
@@ -62,30 +67,17 @@ export default {
     };
   },
   methods: {
-    handleMarkerClick() {},
-
-    flyToLocation(data) {
-      if (data != null) {
-        new mapboxgl.Marker({ color: "black", scale: "2" })
-          .setLngLat({ lng: data.lng, lat: data.lat })
-          .addTo(this.mapData);
-        this.mapData.flyTo({
-          center: [data.lng, data.lat],
-          zoom: 12,
-          speed: 1.6,
-          curve: 1,
-          easing(t) {
-            return t;
-          },
-        });
-      }
+    handleMarkerClick(marker) {
+      console.log(`You clicked on marker with id: ${marker.location_id}`);
+      let data = {
+        lng: marker.coordinates[0],
+        lat: marker.coordinates[1],
+      };
+      // this.flyToLocation(data);
     },
   },
   mounted() {
     this.mapbox = Mapbox;
-  },
-  updated() {
-    this.flyToLocation(this.location);
   },
 };
 </script>
@@ -95,5 +87,16 @@ export default {
   height: 100%;
   border-radius: 2.5rem;
   overflow: hidden;
+}
+
+.mapboxgl-popup-content {
+  max-height: 500px;
+  max-width: 500px;
+  border-radius: 20px;
+  padding: 15px;
+}
+
+.mapboxgl-popup-close-button {
+  display: none;
 }
 </style>
