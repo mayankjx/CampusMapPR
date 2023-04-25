@@ -1,6 +1,7 @@
 <template>
   <div id="mapContainer">
     <MglMap
+      ref="map"
       :accessToken="accessToken"
       :mapStyle="style"
       :center="center"
@@ -69,11 +70,14 @@ export default {
   methods: {
     handleMarkerClick(marker) {
       console.log(`You clicked on marker with id: ${marker.location_id}`);
-      let data = {
-        lng: marker.coordinates[0],
-        lat: marker.coordinates[1],
-      };
-      // this.flyToLocation(data);
+      let newLng = marker.coordinates[0];
+      let newLat = marker.coordinates[1];
+      const map = this.$refs.map.map;
+
+      map.flyTo({
+        center: [newLng, newLat],
+        duration: 1000,
+      });
     },
   },
   mounted() {
