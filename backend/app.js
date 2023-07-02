@@ -7,7 +7,7 @@ app.use(express.json());
 const port = 3000;
 
 app.get("/", (req, res) => {
-  res.send("Server is up and running!");
+  res.sendStatus(200);
 });
 
 app.listen(port, () => {
