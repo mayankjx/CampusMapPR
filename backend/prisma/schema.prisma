@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,4 +5,124 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model FacultyOrganizers_ {
+  OrganizerID      BigInt           @id @default(autoincrement())
+  Designation      String?          @db.VarChar
+  EventOrganizers_ EventOrganizers_ @relation(fields: [OrganizerID], references: [OrganizerID], onDelete: NoAction, onUpdate: NoAction)
+
+  @@map(" FacultyOrganizers ")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model ClubsOrganizers {
+  OrganizerID          BigInt           @id @default(autoincrement())
+  Name                 String?          @db.VarChar
+  Description          String?
+  Coordinator_name     String?          @db.VarChar
+  Co_Coordinator_name  String?          @map("Co-Coordinator_name") @db.VarChar
+  Coordinator_email    String?          @db.VarChar
+  Co_Coordinator_email String?          @map("Co-Coordinator_email") @db.VarChar
+  EventOrganizers_     EventOrganizers_ @relation(fields: [OrganizerID], references: [OrganizerID], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Comments {
+  CommentID   BigInt     @id @default(autoincrement())
+  EntityType  String?    @db.VarChar
+  EntityID    BigInt?
+  UserID      BigInt?
+  CommentText String?    @db.VarChar
+  CommentDate DateTime?  @db.Timestamptz(6)
+  Locations   Locations? @relation(fields: [EntityID], references: [LocationID], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model EventOrganizers_ {
+  OrganizerID               BigInt                     @id @default(autoincrement())
+  UserID                    BigInt?
+  OrganizerType             String?                    @db.VarChar
+  FacultyOrganizers_        FacultyOrganizers_?
+  ClubsOrganizers           ClubsOrganizers?
+  User                      User?                      @relation(fields: [UserID], references: [UserID], onDelete: NoAction, onUpdate: NoAction)
+  Events_                   Events_[]
+  Organizer_locations       Organizer_locations?
+  ServiceProviderOrganizers ServiceProviderOrganizers?
+  Subscriptions             Subscriptions[]
+
+  @@map("EventOrganizers ")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Events_ {
+  EventID_         BigInt            @id @default(autoincrement()) @map("EventID ")
+  OrganizerID      BigInt?
+  LocationID       BigInt?
+  Title            String?           @db.VarChar
+  Description      String?
+  start_date       DateTime?         @db.Timestamptz(6)
+  end_date         DateTime?         @db.Timestamptz(6)
+  Locations        Locations?        @relation(fields: [LocationID], references: [LocationID], onDelete: NoAction, onUpdate: NoAction)
+  EventOrganizers_ EventOrganizers_? @relation(fields: [OrganizerID], references: [OrganizerID], onDelete: NoAction, onUpdate: NoAction)
+
+  @@map("Events ")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model GeneralUsers {
+  UserID_ BigInt @id @default(autoincrement()) @map("UserID ")
+  User    User   @relation(fields: [UserID_], references: [UserID], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Locations {
+  LocationID          BigInt                @id @default(autoincrement())
+  LocationType        String?               @db.VarChar
+  Name                String?               @db.VarChar
+  Description         String?
+  x_cord              Float?
+  y_cord              Float?
+  Visibility          BigInt?
+  Comments            Comments[]
+  Events_             Events_[]
+  Organizer_locations Organizer_locations[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Organizer_locations {
+  OrganizerID      BigInt           @id @default(autoincrement())
+  LocationID       BigInt?
+  Locations        Locations?       @relation(fields: [LocationID], references: [LocationID], onDelete: NoAction, onUpdate: NoAction)
+  EventOrganizers_ EventOrganizers_ @relation(fields: [OrganizerID], references: [OrganizerID], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model ServiceProviderOrganizers {
+  OrganizerID      BigInt           @id @default(autoincrement())
+  Type             String?          @db.VarChar
+  Name             String?          @db.VarChar
+  Description      String?
+  Remarks          String?
+  EventOrganizers_ EventOrganizers_ @relation(fields: [OrganizerID], references: [OrganizerID], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Subscriptions {
+  UserID           BigInt            @id @default(autoincrement())
+  OrganizerID_     BigInt?           @map("OrganizerID ")
+  EventOrganizers_ EventOrganizers_? @relation(fields: [OrganizerID_], references: [OrganizerID], onDelete: NoAction, onUpdate: NoAction)
+  User             User              @relation(fields: [UserID], references: [UserID], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model User {
+  UserID           BigInt             @id
+  First_Name       String             @map("First Name")
+  Last_Name        String             @map("Last Name")
+  UserType         String             @default("GeneralUser")
+  EventOrganizers_ EventOrganizers_[]
+  GeneralUsers     GeneralUsers?
+  Subscriptions    Subscriptions?
 }

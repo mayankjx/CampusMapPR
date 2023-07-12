@@ -1,0 +1,6 @@
+config: Contains configuration files, it contains database configuration.
+controllers: Responsible for handling requests, calling services, and returning responses. Each controller handles a specific resource or entity.
+middlewares: Contains reusable middleware functions to be applied to routes or specific endpoints. 
+routes: Defines API routes and maps them to corresponding controller functions. The index.js file acts as the entry point for all routes and imports route files.
+services: Implements business logic and performs operations on data. Services are typically called by controllers to handle specific tasks and interact with the database.
+app.js: The entry point of Node.js application where configure and initialize the Express server, set up middleware, and define global error handling.
