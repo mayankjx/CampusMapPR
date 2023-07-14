@@ -119,8 +119,8 @@ model Subscriptions {
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model User {
   UserID           BigInt             @id
-  First_Name       String             @map("First Name")
-  Last_Name        String             @map("Last Name")
+  FirstName        String
+  LastName         String
   UserType         String             @default("GeneralUser")
   EventOrganizers_ EventOrganizers_[]
   GeneralUsers     GeneralUsers?
