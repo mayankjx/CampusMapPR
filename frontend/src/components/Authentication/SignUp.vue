@@ -1,6 +1,6 @@
 <template>
   <div class="signUpForm">
-    <form @submit.prevent="submitForm" class="sign-up-form">
+    <form class="sign-up-form">
       <CHeading size="lg">Sign Up</CHeading>
       <CFormControl>
         <CFormLabel for="username" fontFamily="heading">Username</CFormLabel>
@@ -34,7 +34,12 @@
           placeholder="Enter your password"
         />
       </CFormControl>
-      <c-button type="submit" colorScheme="blue" mt="4" fontFamily="heading">
+      <c-button
+        @click="handleSignUp"
+        colorScheme="blue"
+        mt="4"
+        fontFamily="heading"
+      >
         Sign Up
       </c-button>
     </form>
@@ -61,9 +66,21 @@ export default {
     };
   },
   methods: {
-    submitForm() {
-      // Here, you can add your logic to send the form data to the server or perform any desired actions.
-      console.log("Form submitted with data:", this.formData);
+    async handleSignUp() {
+      try {
+        const supabase = require("../../lib/supabaseClient");
+        const { user, session, error } = await supabase.supabase.auth.signUp({
+          email: this.formData.email,
+          password: this.formData.password,
+        });
+        if (error) {
+          console.log(`SignUp error: ${error}`);
+        } else {
+          console.log(user, session);
+        }
+      } catch (error) {
+        console.log(`Error during sign up: ${error}`);
+      }
     },
   },
   components: {

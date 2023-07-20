@@ -47,3 +47,5 @@ new Vue({
   router,
   render: (h) => h(CThemeProvider, [h(CReset), h(App)]),
 }).$mount("#app");
+
+Vue.prototype.$supabase = supabase;

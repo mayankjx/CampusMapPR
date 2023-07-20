@@ -6,10 +6,6 @@
 export default {
   name: "App",
   inject: ["supabase"],
-
-  created() {
-    console.log(this.supabase);
-  },
 };
 </script>
 
