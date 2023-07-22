@@ -73,13 +73,20 @@ export default {
           email: this.formData.email,
           password: this.formData.password,
         });
-        console.log(response.data.session, response.data.user);
-        // if (error) {
-        //   console.log(`SignIn error: ${error}`);
-        // }
-        // if (user) {
-        //   console.log("Signed in user: ", user, session);
-        // }
+        if (response.error) {
+          console.log(`Error during login: ${error}`);
+        }
+        if (response.data) {
+          console.log(response.data.session, response.data.user);
+          const token = response.data.session.access_token;
+          const isAuth = true;
+          document.cookie = `jwt=${token}; HttpOnly; Secure; SameSite=Strict`;
+          this.$store.commit("setAuthenticationStatus", isAuth);
+          this.$router.push("/general-user/dashboard");
+          // this.$store.commit('setUserRole', )
+        }
+
+        console.log(this.$store.getters.isAuthenticated);
       } catch (error) {
         console.log(`Error during sign in: ${error}`);
       }

@@ -1,15 +1,25 @@
 <template>
   <div class="signUpForm">
     <form class="sign-up-form">
-      <CHeading size="lg">Sign Up</CHeading>
+      <CHeading size="lg">Create Your Account</CHeading>
       <CFormControl>
-        <CFormLabel for="username" fontFamily="heading">Username</CFormLabel>
+        <CFormLabel for="firstName" fontFamily="heading">First Name</CFormLabel>
         <CInput
-          id="username"
-          v-model="formData.username"
+          id="firstName"
+          v-model="formData.firstName"
           fontFamily="heading"
           required
-          placeholder="Enter your username"
+          placeholder="First Name"
+        />
+      </CFormControl>
+      <CFormControl>
+        <CFormLabel for="lastName" fontFamily="heading">Last Name</CFormLabel>
+        <CInput
+          id="lastName"
+          v-model="formData.lastName"
+          fontFamily="heading"
+          required
+          placeholder="Last Name"
         />
       </CFormControl>
       <CFormControl>
@@ -47,6 +57,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import {
   CFormControl,
   CFormLabel,
@@ -60,6 +71,8 @@ export default {
     return {
       formData: {
         username: "",
+        firstName: "",
+        lastName: "",
         email: "",
         password: "",
       },
@@ -69,17 +82,48 @@ export default {
     async handleSignUp() {
       try {
         const supabase = require("../../lib/supabaseClient");
-        const { user, session, error } = await supabase.supabase.auth.signUp({
+        const res = await supabase.supabase.auth.signUp({
           email: this.formData.email,
           password: this.formData.password,
         });
-        if (error) {
-          console.log(`SignUp error: ${error}`);
+        console.log(res);
+        if (res.data.error) {
+          console.log(`SignUp error: ${res.data.error}`);
         } else {
-          console.log(user, session);
+          let userObj = {
+            UserID: Math.floor(Math.random() * 1000000),
+            UserUUID: res.data.user.id,
+            FirstName: this.formData.firstName,
+            LastName: this.formData.lastName,
+            UserType: "general",
+          };
+          this.signUpRequest(userObj, res.data.session);
+          console.log(res.data.user, res.data.session);
         }
       } catch (error) {
         console.log(`Error during sign up: ${error}`);
+      }
+    },
+
+    async signUpRequest(userObj, session) {
+      try {
+        const reqBody = {
+          userObj: userObj,
+          session: session,
+        };
+        const res = await axios.post("/api/signup", reqBody);
+
+        console.log(res.data);
+
+        if (res.data) {
+          const token = res.data.jwt;
+          const isAuth = true;
+          document.cookie = `jwt=${token}; HttpOnly; Secure; SameSite=Strict`;
+          this.$store.commit("setAuthenticationStatus", isAuth);
+          this.$store.commit("setUserRole", res.data.UserType);
+        }
+      } catch (error) {
+        console.log(error);
       }
     },
   },

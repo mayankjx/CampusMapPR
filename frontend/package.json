@@ -15,17 +15,20 @@
     "@fortawesome/free-solid-svg-icons": "^6.3.0",
     "@fortawesome/vue-fontawesome": "^2.0.10",
     "@supabase/supabase-js": "^2.26.0",
+    "axios": "^1.4.0",
     "core-js": "^3.6.5",
     "emotion": "^10.0.27",
     "mapbox-gl": "^0.53.1",
     "vue": "^2.6.11",
     "vue-mapbox": "^0.4.1",
-    "vue-router": "^3.2.0"
+    "vue-router": "^3.2.0",
+    "vuex": "^3.4.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.15",
     "@vue/cli-plugin-router": "~4.5.15",
     "@vue/cli-plugin-unit-jest": "~4.5.15",
+    "@vue/cli-plugin-vuex": "~4.5.15",
     "@vue/cli-service": "~4.5.15",
     "@vue/test-utils": "^1.0.3",
     "chakra-loader": "^1.0.2",
