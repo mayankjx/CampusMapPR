@@ -50,7 +50,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    const authState = router.app.$store.getters.isAuthenticated;
+    const authState = sessionStorage.getItem("isAuthenticated");
     if (authState) {
       next();
     } else {

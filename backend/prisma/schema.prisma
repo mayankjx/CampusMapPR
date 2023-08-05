@@ -9,7 +9,7 @@ datasource db {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model FacultyOrganizers_ {
-  OrganizerID BigInt  @id @default(autoincrement())
+  OrganizerID Int  @id @default(autoincrement())
   Designation String? @db.VarChar
 
   @@map(" FacultyOrganizers ")
@@ -17,7 +17,7 @@ model FacultyOrganizers_ {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model ClubsOrganizers {
-  OrganizerID          BigInt  @id @default(autoincrement())
+  OrganizerID          Int  @id @default(autoincrement())
   Name                 String? @db.VarChar
   Description          String?
   Coordinator_name     String? @db.VarChar
@@ -28,10 +28,10 @@ model ClubsOrganizers {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model Comments {
-  CommentID   BigInt     @id @default(autoincrement())
+  CommentID   Int     @id @default(autoincrement())
   EntityType  String?    @db.VarChar
   EntityID    Int?
-  UserID      BigInt?
+  UserID      Int?
   CommentText String?    @db.VarChar
   CommentDate DateTime?  @db.Timestamptz(6)
   Locations   Locations? @relation(fields: [EntityID], references: [LocationID], onDelete: NoAction, onUpdate: NoAction)
@@ -39,8 +39,8 @@ model Comments {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model EventOrganizers_ {
-  OrganizerID   BigInt  @id @default(autoincrement())
-  UserID        BigInt?
+  OrganizerID   Int  @id @default(autoincrement())
+  UserID        Int?
   OrganizerType String? @db.VarChar
 
   @@map("EventOrganizers ")
@@ -48,8 +48,8 @@ model EventOrganizers_ {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model Events_ {
-  EventID_    BigInt     @id @default(autoincrement()) @map("EventID ")
-  OrganizerID BigInt?
+  EventID_    Int     @id @default(autoincrement()) @map("EventID ")
+  OrganizerID Int?
   LocationID  Int?
   Title       String?    @db.VarChar
   Description String?
@@ -62,7 +62,7 @@ model Events_ {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model GeneralUsers {
-  UserID_ BigInt @id @default(autoincrement()) @map("UserID ")
+  UserID_ Int @id @default(autoincrement()) @map("UserID ")
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
@@ -81,13 +81,13 @@ model Locations {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model Organizer_locations {
-  OrganizerID BigInt  @id @default(autoincrement())
-  LocationID  BigInt?
+  OrganizerID Int  @id @default(autoincrement())
+  LocationID  Int?
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model ServiceProviderOrganizers {
-  OrganizerID BigInt  @id @default(autoincrement())
+  OrganizerID Int  @id @default(autoincrement())
   Type        String? @db.VarChar
   Name        String? @db.VarChar
   Description String?
@@ -96,13 +96,13 @@ model ServiceProviderOrganizers {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model Subscriptions {
-  UserID       BigInt  @id @default(autoincrement())
-  OrganizerID_ BigInt? @map("OrganizerID ")
+  UserID       Int  @id @default(autoincrement())
+  OrganizerID_ Int? @map("OrganizerID ")
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model User {
-  UserID    BigInt  @id
+  UserID    Int  @id
   FirstName String
   LastName  String
   UserType  String  @default("GeneralUser")

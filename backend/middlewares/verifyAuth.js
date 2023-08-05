@@ -12,6 +12,7 @@ async function verifyToken(req, res, next) {
     }
 
     const token = authHeader.split(" ")[1];
+
     const decoded = jwt.verify(token, secret);
 
     if (decoded) {

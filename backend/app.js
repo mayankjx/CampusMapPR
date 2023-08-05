@@ -1,12 +1,16 @@
 const express = require("express");
+const cookieParser = require("cookie-parser");
+
 const userRouter = require("./routes/userRoutes");
 const locationRouter = require("./routes/locationRoutes");
+
 require("dotenv").config();
 
 const app = express();
 
 // global middlewares
 app.use(express.json());
+app.use(cookieParser());
 
 const port = 3000 || process.env.PORT;
 

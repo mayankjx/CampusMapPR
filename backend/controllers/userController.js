@@ -4,11 +4,27 @@ const userService = require("../services/userService");
 
 async function getUserInfo(req, res) {
   try {
-    const user = req.user;
+    const authHeader = req.headers.authorization;
 
-    console.log(user);
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({ error: "Token not provided" });
+    }
 
-    return res.status(200).json({ msg: "successful" });
+    const token = authHeader.split(" ")[1];
+
+    const supabaseRes = await supabase.auth.getUser(token);
+    if (supabaseRes.error) {
+      console.log(supabaseRes.error);
+      console.error("Error retrieving user information:", supabaseRes.error);
+    }
+    const uuid = supabaseRes.data.user.id;
+    const prismaRes = await prisma.user.findUnique({
+      where: {
+        UserUUID: uuid,
+      },
+    });
+
+    return res.status(200).json(prismaRes);
   } catch (error) {
     console.error("Error retrieving user information:", error);
     return res

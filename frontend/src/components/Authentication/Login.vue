@@ -80,10 +80,10 @@ export default {
           console.log(response.data.session, response.data.user);
           const token = response.data.session.access_token;
           const isAuth = true;
-          document.cookie = `jwt=${token}; HttpOnly; Secure; SameSite=Strict`;
-          this.$store.commit("setAuthenticationStatus", isAuth);
+          sessionStorage.setItem("token", token);
+          sessionStorage.setItem("isAuthenticated", isAuth);
+
           this.$router.push("/general-user/dashboard");
-          // this.$store.commit('setUserRole', )
         }
 
         console.log(this.$store.getters.isAuthenticated);
