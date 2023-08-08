@@ -14,8 +14,29 @@
         </c-input-group>
       </CFlex>
       <CFlex w="30%" p="5" justify="flex-end">
-        <c-box as="button" rounded="md" bg="primary" color="white" px="4" h="8">
+        <c-box
+          as="button"
+          rounded="md"
+          bg="primary"
+          color="white"
+          px="4"
+          h="8"
+          v-if="!isAuthenticated"
+          @click="navigateLogin"
+        >
           Login
+        </c-box>
+        <c-box
+          as="button"
+          rounded="md"
+          bg="primary"
+          color="white"
+          px="4"
+          h="8"
+          v-if="isAuthenticated"
+          @click="navigateDashboard"
+        >
+          Dashboard
         </c-box>
       </CFlex>
     </CFlex>
@@ -33,6 +54,29 @@ export default {
     CInput,
     CInputGroup,
     CInputLeftElement,
+  },
+  data() {
+    return {
+      isAuthenticated: false,
+    };
+  },
+  created() {
+    const authState = sessionStorage.getItem("isAuthenticated");
+    if (authState == true) {
+      this.isAuthenticated = true;
+    } else {
+      this.isAuthenticated = false;
+    }
+    console.log(typeof authState);
+  },
+  methods: {
+    navigateDashboard() {
+      this.$router.push("/general-user/dashboard");
+    },
+
+    navigateLogin() {
+      this.$router.push("/");
+    },
   },
 };
 </script>

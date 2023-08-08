@@ -24,7 +24,7 @@ library.add(faNotesMedical, faMagnifyingGlass, faBowlFood, faBuilding);
 // Mapbox lib
 import Mapbox from "mapbox-gl";
 import VueMapbox from "vue-mapbox";
-import store from './store'
+import store from "./store";
 
 Vue.use(VueMapbox, { mapboxgl: Mapbox });
 
@@ -48,7 +48,7 @@ new Vue({
 
   router,
   store,
-  render: (h) => h(CThemeProvider, [h(CReset), h(App)])
+  render: (h) => h(CThemeProvider, [h(CReset), h(App)]),
 }).$mount("#app");
 
 Vue.prototype.$supabase = supabase;
