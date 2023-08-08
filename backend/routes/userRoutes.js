@@ -6,6 +6,7 @@ const verifyAuth = require("../middlewares/verifyAuth");
 
 router.get("/user", verifyAuth, userController.getUserInfo);
 router.post("/signup", userController.signUp);
+
 router.post("/signin", userController.signIn);
 
 module.exports = router;
