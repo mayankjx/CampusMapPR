@@ -9,7 +9,7 @@ datasource db {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model FacultyOrganizers_ {
-  OrganizerID Int  @id @default(autoincrement())
+  OrganizerID BigInt  @id @default(autoincrement())
   Designation String? @db.VarChar
 
   @@map(" FacultyOrganizers ")
@@ -17,7 +17,7 @@ model FacultyOrganizers_ {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model ClubsOrganizers {
-  OrganizerID          Int  @id @default(autoincrement())
+  OrganizerID          BigInt  @id @default(autoincrement())
   Name                 String? @db.VarChar
   Description          String?
   Coordinator_name     String? @db.VarChar
@@ -28,10 +28,10 @@ model ClubsOrganizers {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model Comments {
-  CommentID   Int     @id @default(autoincrement())
+  CommentID   BigInt     @id @default(autoincrement())
   EntityType  String?    @db.VarChar
   EntityID    Int?
-  UserID      Int?
+  UserID      BigInt?
   CommentText String?    @db.VarChar
   CommentDate DateTime?  @db.Timestamptz(6)
   Locations   Locations? @relation(fields: [EntityID], references: [LocationID], onDelete: NoAction, onUpdate: NoAction)
@@ -39,30 +39,16 @@ model Comments {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model EventOrganizers_ {
-  OrganizerID   Int  @id @default(autoincrement())
-  UserID        Int?
+  OrganizerID   BigInt  @id @default(autoincrement())
+  UserID        BigInt?
   OrganizerType String? @db.VarChar
 
   @@map("EventOrganizers ")
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model Events_ {
-  EventID_    Int     @id @default(autoincrement()) @map("EventID ")
-  OrganizerID Int?
-  LocationID  Int?
-  Title       String?    @db.VarChar
-  Description String?
-  start_date  DateTime?  @db.Timestamptz(6)
-  end_date    DateTime?  @db.Timestamptz(6)
-  Locations   Locations? @relation(fields: [LocationID], references: [LocationID], onDelete: NoAction, onUpdate: NoAction)
-
-  @@map("Events ")
-}
-
-/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model GeneralUsers {
-  UserID_ Int @id @default(autoincrement()) @map("UserID ")
+  UserID_ BigInt @id @default(autoincrement()) @map("UserID ")
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
@@ -76,18 +62,18 @@ model Locations {
   Visibility   Int?
   ImageName    String?    @db.VarChar
   Comments     Comments[]
-  Events_      Events_[]
+  Events       Events[]
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model Organizer_locations {
-  OrganizerID Int  @id @default(autoincrement())
-  LocationID  Int?
+  OrganizerID BigInt  @id @default(autoincrement())
+  LocationID  BigInt?
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model ServiceProviderOrganizers {
-  OrganizerID Int  @id @default(autoincrement())
+  OrganizerID BigInt  @id @default(autoincrement())
   Type        String? @db.VarChar
   Name        String? @db.VarChar
   Description String?
@@ -96,15 +82,27 @@ model ServiceProviderOrganizers {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model Subscriptions {
-  UserID       Int  @id @default(autoincrement())
-  OrganizerID_ Int? @map("OrganizerID ")
+  UserID       BigInt  @id @default(autoincrement())
+  OrganizerID_ BigInt? @map("OrganizerID ")
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model User {
-  UserID    Int  @id
+  UserID    Int     @id
   FirstName String
   LastName  String
   UserType  String  @default("GeneralUser")
   UserUUID  String? @unique @db.Uuid
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Events {
+  EventID     BigInt     @id(map: "Events _pkey") @default(autoincrement())
+  OrganizerID BigInt?
+  LocationID  Int?
+  Title       String?    @db.VarChar
+  Description String?
+  start_date  DateTime?  @db.Timestamptz(6)
+  end_date    DateTime?  @db.Timestamptz(6)
+  Locations   Locations? @relation(fields: [LocationID], references: [LocationID], onDelete: NoAction, onUpdate: NoAction)
 }
