@@ -1,11 +1,16 @@
 const express = require("express");
+const cookieParser = require("cookie-parser");
+
 const userRouter = require("./routes/userRoutes");
+const locationRouter = require("./routes/locationRoutes");
+
 require("dotenv").config();
 
 const app = express();
 
 // global middlewares
 app.use(express.json());
+app.use(cookieParser());
 
 const port = 3000 || process.env.PORT;
 
@@ -16,6 +21,7 @@ app.get("/", (req, res) => {
 
 // routes
 app.use("/api", userRouter);
+app.use("/api", locationRouter);
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
