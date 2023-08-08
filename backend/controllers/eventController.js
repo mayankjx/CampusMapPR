@@ -30,7 +30,7 @@ async function getEventById(req, res) {
       },
     });
 
-    if (event) {
+    if (event.length > 0) {
       return res.json(event);
     } else {
       return res.status(404).json({ message: `Event with EventID ${eventID} not found.` });
@@ -50,7 +50,7 @@ async function getEventByOId(req, res) {
       },
     });
 
-    if (event) {
+    if (event.length > 0) {
       return res.json(event);
     } else {
       return res.status(404).json({ message: `Event with OrganizerID ${organizerID} not found.` });
@@ -70,7 +70,7 @@ async function getEventByLId(req, res) {
       },
     });
 
-    if (event) {
+    if (event.length > 0) {
       return res.json(event);
     } else {
       return res.status(404).json({ message: `Event with Location ${locationID} not found.` });
