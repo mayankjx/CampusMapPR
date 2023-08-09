@@ -8,14 +8,6 @@ datasource db {
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model FacultyOrganizers_ {
-  OrganizerID BigInt  @id @default(autoincrement())
-  Designation String? @db.VarChar
-
-  @@map(" FacultyOrganizers ")
-}
-
-/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model ClubsOrganizers {
   OrganizerID          BigInt  @id @default(autoincrement())
   Name                 String? @db.VarChar
@@ -35,15 +27,6 @@ model Comments {
   CommentText String?    @db.VarChar
   CommentDate DateTime?  @db.Timestamptz(6)
   Locations   Locations? @relation(fields: [EntityID], references: [LocationID], onDelete: NoAction, onUpdate: NoAction)
-}
-
-/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model EventOrganizers_ {
-  OrganizerID   BigInt  @id @default(autoincrement())
-  UserID        BigInt?
-  OrganizerType String? @db.VarChar
-
-  @@map("EventOrganizers ")
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
@@ -105,4 +88,17 @@ model Events {
   start_date  DateTime?  @db.Timestamptz(6)
   end_date    DateTime?  @db.Timestamptz(6)
   Locations   Locations? @relation(fields: [LocationID], references: [LocationID], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model EventOrganizers {
+  OrganizerID   BigInt  @id(map: "EventOrganizers _pkey") @default(autoincrement())
+  UserID        BigInt?
+  OrganizerType String? @db.VarChar
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model FacultyOrganizers {
+  OrganizerID BigInt  @id(map: " FacultyOrganizers _pkey") @default(autoincrement())
+  Designation String? @db.VarChar
 }

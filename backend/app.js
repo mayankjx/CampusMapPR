@@ -3,7 +3,7 @@ const cookieParser = require("cookie-parser");
 const userRouter = require("./routes/userRoutes");
 const locationRouter = require("./routes/locationRoutes");
 const eventRouter = require("./routes/eventRoutes");
-
+const organizerRouter = require("./routes/organizerRoutes");
 require("dotenv").config();
 
 const app = express();
@@ -23,6 +23,7 @@ app.get("/", (req, res) => {
 app.use("/api", userRouter);
 app.use("/api", locationRouter);
 app.use("/api",eventRouter);
+app.use("/api",organizerRouter);
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
